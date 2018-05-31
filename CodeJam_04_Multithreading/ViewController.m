@@ -52,22 +52,18 @@
     }
     [self createButton];
     
-    
-    
     NSURL *imageURL1 = [NSURL URLWithString:@"https://i.pinimg.com/originals/87/06/39/870639883348ac2df7c6bab980e16e5c.gif"];
     NSURL *imageURL2 = [NSURL URLWithString:@"https://i.pinimg.com/originals/e5/44/02/e54402c3b6f3a8f09b0339fa29c30553.jpg"];
     NSURL *imageURL3 = [NSURL URLWithString:@"https://image.freepik.com/free-icon/no-translate-detected_318-40184.jpg"];
     
     
-    
     __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        __strong typeof(self)strongSelf = weakSelf;
         
         UIImage *image1 = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL1]];
         
-        
         dispatch_async(dispatch_get_main_queue(), ^{
+            __strong typeof(self)strongSelf = weakSelf;
             UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
             imageView1.image = image1;
             
@@ -89,12 +85,11 @@
     
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        __strong typeof(self)strongSelf = weakSelf;
         
         UIImage *image2 = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL2]];
         
-        
         dispatch_async(dispatch_get_main_queue(), ^{
+            __strong typeof(self)strongSelf = weakSelf;
             UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
             imageView2.image = image2;
             
@@ -116,12 +111,11 @@
     
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        __strong typeof(self)strongSelf = weakSelf;
         
         UIImage *image3 = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL3]];
         
-        
         dispatch_async(dispatch_get_main_queue(), ^{
+            __strong typeof(self)strongSelf = weakSelf;
             UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
             imageView3.image = image3;
             
@@ -188,9 +182,9 @@
     });
     
     dispatch_group_notify(group, queue, ^{
-        __strong typeof(self)strongSelf = weakSelf;
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            __strong typeof(self)strongSelf = weakSelf;
+    
             [strongSelf.view addSubview:view4];
             [view4 release];
         });
