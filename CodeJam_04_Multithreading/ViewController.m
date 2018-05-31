@@ -7,12 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "ViewWithImageAndURLLabel.h"
 
 @interface ViewController ()
 
-@property (nonatomic, assign) int coordinateY;
+@property (nonatomic, assign)CGFloat coordinateY;
 
-- (void)calculationCoordinateY;
+- (CGFloat)calculationCoordinateY;
 
 @end
 
@@ -64,22 +65,10 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             __strong typeof(self)strongSelf = weakSelf;
-            UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-            imageView1.image = image1;
             
-            UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, self.view.bounds.size.width - 110, 100)];
-            label1.text = [NSString stringWithFormat:@"%@", imageURL1];
-            
-            [strongSelf calculationCoordinateY];
-            UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(5, strongSelf.coordinateY, self.view.bounds.size.width - 10, 100)];
-            view1.backgroundColor = [UIColor redColor];
-            [view1 addSubview:imageView1];
-            [view1 addSubview:label1];
-            
+            ViewWithImageAndURLLabel *view1 = [ViewWithImageAndURLLabel viewWithCoordinateY:strongSelf.calculationCoordinateY andImage:image1 andURLLabel:imageURL1];
             [strongSelf.view addSubview:view1];
-            [view1 release];
-            [imageView1 release];
-            [label1 release];
+            
         });
     });
     
@@ -90,22 +79,10 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             __strong typeof(self)strongSelf = weakSelf;
-            UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-            imageView2.image = image2;
-            
-            UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, self.view.bounds.size.width - 110, 100)];
-            label2.text = [NSString stringWithFormat:@"%@", imageURL2];
-            
-            [strongSelf calculationCoordinateY];
-            UIView *view2 = [[UIView alloc] initWithFrame:CGRectMake(5, strongSelf.coordinateY, self.view.bounds.size.width - 10, 100)];
-            view2.backgroundColor = [UIColor greenColor];
-            [view2 addSubview:imageView2];
-            [view2 addSubview:label2];
-            
+           
+            ViewWithImageAndURLLabel *view2 = [ViewWithImageAndURLLabel viewWithCoordinateY:strongSelf.calculationCoordinateY andImage:image2 andURLLabel:imageURL2];
             [strongSelf.view addSubview:view2];
-            [view2 release];
-            [imageView2 release];
-            [label2 release];
+            
         });
     });
     
@@ -116,22 +93,10 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             __strong typeof(self)strongSelf = weakSelf;
-            UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-            imageView3.image = image3;
-            
-            UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, self.view.bounds.size.width - 110, 100)];
-            label3.text = [NSString stringWithFormat:@"%@", imageURL3];
-            
-            [strongSelf calculationCoordinateY];
-            UIView *view3 = [[UIView alloc] initWithFrame:CGRectMake(5, strongSelf.coordinateY, self.view.bounds.size.width - 10, 100)];
-            view3.backgroundColor = [UIColor yellowColor];
-            [view3 addSubview:imageView3];
-            [view3 addSubview:label3];
-            
+           
+            ViewWithImageAndURLLabel *view3 = [ViewWithImageAndURLLabel viewWithCoordinateY:strongSelf.calculationCoordinateY andImage:image3 andURLLabel:imageURL3];
             [strongSelf.view addSubview:view3];
-            [view3 release];
-            [imageView3 release];
-            [label3 release];
+            
         });
     });
     
@@ -196,14 +161,13 @@
 }
 
 
-- (void)calculationCoordinateY {
-    NSLog(@"%d", self.coordinateY);
-    
+- (CGFloat)calculationCoordinateY {
     if (self.coordinateY == 0) {
         self.coordinateY = self.coordinateY + 20;
     }else{
         self.coordinateY = self.coordinateY + 100;
     }
+    return self.coordinateY;
 }
 
 - (void)didReceiveMemoryWarning {
