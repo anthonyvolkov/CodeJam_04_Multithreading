@@ -49,9 +49,10 @@
     
     NSArray *viewsToRemove = [self.view subviews];
     for (UIView *v in viewsToRemove) {
-        [v removeFromSuperview];
+        if ([v isKindOfClass:[ViewWithImageAndURLLabel class]]) {
+            [v removeFromSuperview];
+        }
     }
-    [self createButton];
     
     NSURL *imageURL1 = [NSURL URLWithString:@"https://i.pinimg.com/originals/87/06/39/870639883348ac2df7c6bab980e16e5c.gif"];
     NSURL *imageURL2 = [NSURL URLWithString:@"https://i.pinimg.com/originals/e5/44/02/e54402c3b6f3a8f09b0339fa29c30553.jpg"];
@@ -105,10 +106,10 @@
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_group_t group = dispatch_group_create();
     
-    UIView *view4 = [[UIView alloc] initWithFrame:CGRectMake(5, 370, self.view.bounds.size.width - 10, 100)];
+    ViewWithImageAndURLLabel *view4 = [[ViewWithImageAndURLLabel alloc] initWithFrame:CGRectMake(5, 370, self.view.bounds.size.width - 10, 100)];
     view4.backgroundColor = [UIColor blackColor];
     
-    
+    dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
         UIImage *image5 = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL1]];
         
@@ -117,10 +118,12 @@
             imageView5.image = image5;
             [view4 addSubview:imageView5];
             [imageView5 release];
-        });
             
+        });
+        dispatch_group_leave(group);
     });
     
+    dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
         UIImage *image6 = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL2]];
     
@@ -130,9 +133,10 @@
             [view4 addSubview:imageView6];
             [imageView6 release];
         });
-        
+        dispatch_group_leave(group);
     });
-
+    
+    dispatch_group_enter(group);
     dispatch_group_async(group, queue, ^{
         UIImage *image7 = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL3]];
     
@@ -142,8 +146,7 @@
             [view4 addSubview:imageView7];
             [imageView7 release];
         });
-    
-        
+        dispatch_group_leave(group);
     });
     
     dispatch_group_notify(group, queue, ^{
@@ -155,9 +158,7 @@
         });
     });
     
-    
     dispatch_release(group);
-    
 }
 
 
