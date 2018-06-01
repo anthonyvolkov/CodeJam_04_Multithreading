@@ -176,5 +176,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    self.coordinateY = 0;
+    [super dealloc];
+}
 
 @end
